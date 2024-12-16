@@ -1,0 +1,37 @@
+name: Deploy Release (tag) to Environment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "The target environment"
+        required: true
+        type: choice
+        options:
+          - dev
+
+concurrency:
+  group: "release"
+  cancel-in-progress: false
+
+jobs:
+  abort-branch-execution:
+    if: ${{ github.ref_type }} == "branch"
+    runs-on: []
+    timeout-minutes: 5
+
+    steps:
+      - name: Prevent manual deployments from a branch
+        run: |-
+          echo "Deploying a branch is not supported. Select a tag instead of a branch when clicking 'Use workflow' instead github.ref: ${{ github.ref }}, github.events.inputs.ref:${{ github.events.inputs.ref }},github.ref_type: ${{ github.ref_type }}, github.events.inputs.ref_type:${{ github.events.inputs.ref_type }}, sha: ${{ github.sha }}"
+          exit 1
+  deploy-to-environment:
+    if: ${{ github.ref_type }} == "tag"
+    runs-on: []
+    needs: abort-branch-execution
+
+    steps:
+      - name: Hello
+        run: |-
+          echo "HELLO"
+          exit 1
