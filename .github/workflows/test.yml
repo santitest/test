@@ -28,7 +28,6 @@ jobs:
   deploy-to-environment:
     if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
-    needs: abort-branch-execution
 
     steps:
       - name: Hello
