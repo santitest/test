@@ -17,7 +17,7 @@ concurrency:
 jobs:
   abort-branch-execution:
     if: ${{ github.ref_type }} == "branch"
-    runs-on: []
+    runs-on: [self-hosted, Linux, x64]
     timeout-minutes: 5
 
     steps:
@@ -27,7 +27,7 @@ jobs:
           exit 1
   deploy-to-environment:
     if: ${{ github.ref_type }} == "tag"
-    runs-on: []
+    runs-on: [self-hosted, Linux, x64]
     needs: abort-branch-execution
 
     steps:
