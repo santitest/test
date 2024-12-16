@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   abort-branch-execution:
-    if: ${{ github.ref_type }} == "branch"
+    if: github.ref_type == 'branch'
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
@@ -26,7 +26,7 @@ jobs:
           echo "Deploying a branch is not supported. Select a tag instead of a branch when clicking 'Use workflow' instead github.ref: ${{ github.ref }}, github.events.inputs.ref:${{ github.events.inputs.ref }},github.ref_type: ${{ github.ref_type }}, github.events.inputs.ref_type:${{ github.events.inputs.ref_type }}, sha: ${{ github.sha }}"
           exit 1
   deploy-to-environment:
-    if: ${{ github.ref_type }} == "tag"
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     needs: abort-branch-execution
 
