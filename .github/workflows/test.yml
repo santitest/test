@@ -23,7 +23,7 @@ jobs:
       - name: Prevent manual deployments from a branch
         if: github.ref_type == 'branch'
         run: |-
-          echo "Deploying a branch is not supported. Select a tag instead of a branch when clicking 'Use workflow' instead github.ref: ${{ github.ref }}, github.events.inputs.ref:${{ github.events.inputs.ref }},github.ref_type: ${{ github.ref_type }}, github.events.inputs.ref_type:${{ github.events.inputs.ref_type }}, sha: ${{ github.sha }}"
+          echo "Deploying a branch is not supported. Select a tag instead of a branch when clicking 'Use workflow' instead. env: ${{secrets.ENVIRONMENT}}"
           exit 1
   deploy-to-environment:
     if: github.ref_type == 'tag'
